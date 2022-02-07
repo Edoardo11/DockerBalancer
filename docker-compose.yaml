@@ -36,6 +36,8 @@ services:
 
   mariadb:
     image: mariadb
+      volumes:
+        - ./db:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
