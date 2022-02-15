@@ -1,17 +1,16 @@
-version: "3"
+version: '3.8'
 services:
   alpha:
     container_name: alpha
+    hostname: alpha
     build: 
-      context: ./alpha
+      context: ./
       dockerfile: Dockerfile
     depends_on:
       - mariadb
     hostname: alpha
     ports:
       - "8080:80"
-    volumes:
-          - ./app1:/var/www/html/
   beta:
     container_name: beta
     build: 
@@ -23,19 +22,14 @@ services:
     ports:
       - "8081:80"
   nginx:
-    container_name: nginx
-    build: 
-      context: ./nginx
-      dockerfile: Dockerfile
+    build: ./nginx
     ports:
-      - 9000:80
+      - "9000:80"
     depends_on:
       - beta
       - alpha
   mariadb:
     image: mariadb
-      volumes:
-        - ./db:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
