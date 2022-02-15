@@ -10,7 +10,7 @@ services:
       - mariadb
     hostname: alpha
     ports:
-      - "8080:80"
+      - "5001:80"
   beta:
     container_name: beta
     build: 
@@ -20,11 +20,11 @@ services:
       - mariadb
     hostname: beta
     ports:
-      - "8081:80"
+      - "5002:80"
   nginx:
     build: ./nginx
     ports:
-      - "9000:80"
+      - "8080:80"
     depends_on:
       - beta
       - alpha
