@@ -1,47 +1,47 @@
 version: '3.8'
 services:
-    db:
-        container_name: db
-        image: mysql
-        restart: always
-        environment:
-            MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
-            MYSQL_DATABASE: MYSQL_DATABASE
-            MYSQL_USER: MYSQL_USER
-            MYSQL_PASSWORD: MYSQL_PASSWORD
-    app1:
-        container_name: app1
-        hostname: app1
-        build:
-            context: ./
-            dockerfile: Dockerfile
-        depends_on:
-            - db
-        volumes:
-            - ./alpha:/var/www/html/
-        ports:
-            - "5001:80"
-        environment:
-            - APACHE_SERVER_NAME=app1
-    app2:
-        container_name: app2
-        hostname: app2
-        build:
-            context: ./
-            dockerfile: Dockerfile
-        depends_on:
-            - db
-        volumes:
-            - ./alpha:/var/www/html/
-        ports:
-            - "5002:80"
-        environment:
-            - APACHE_SERVER_NAME=app2
-    nginx:
-        build: ./nginx
-        ports:
-            - "8080:80"
-        depends_on:
-            - app1
-            - app2
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: MYSQL_DATABASE
+      MYSQL_USER: MYSQL_USER
+      MYSQL_PASSWORD: MYSQL_PASSWORD
+  app1:
+    container_name: app1
+    hostname: app1
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./alpha:/var/www/html/
+    ports:
+      - "5001:80"
+    environment:
+      - APACHE_SERVER_NAME=app1
+  app2:
+    container_name: app2
+    hostname: app2
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./alpha:/var/www/html/
+    ports:
+      - "5002:80"
+    environment:
+      - APACHE_SERVER_NAME=app2
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - app1
+      - app2
 
